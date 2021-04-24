@@ -1,0 +1,18 @@
+.pokedex-container {
+  display: grid;
+  grid-template-columns: auto auto auto auto auto;
+  grid-column-gap: 16px;
+  grid-row-gap: 16px;
+  padding: 16px;
+}
+
+.pokedex-controls {
+  display: flex;
+  padding: 16px;
+  gap: 8px;
+  align-items: center;
+}
+
+.pokedex-error {
+  padding: 16px;
+}
