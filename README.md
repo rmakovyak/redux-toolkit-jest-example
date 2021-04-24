@@ -4,7 +4,7 @@ How to structure and write tests for redux with redux-thunk and redux-toolkit
 
 ## List of usefull tools and articles for unit testing
 
-- [https://testing-playground.com](testing playground)
+- [Testing playground](https://testing-playground.com)
 - [Common mistakes with react testing library](https://kentcdodds.com/blog/common-mistakes-with-react-testing-library/)
 
 ## Testing best practices
