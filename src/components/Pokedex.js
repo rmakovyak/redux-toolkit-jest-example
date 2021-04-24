@@ -11,10 +11,6 @@ import './Pokedex.css';
 export default function Pokedex() {
   const dispatch = useDispatch();
   const pokedex = useSelector((state) => state.pokedex);
-  const debounceOnChange = useCallback(
-    debounce((event) => dispatch(setSearchQuery(event.target.value)), 500),
-    [],
-  );
 
   useEffect(() => {
     dispatch(fetchPokedex());
