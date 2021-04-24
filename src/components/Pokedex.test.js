@@ -21,6 +21,7 @@ describe('Pokedex', () => {
       pokedex: {
         status: REQUEST_STATUS.FULFILLED,
         entities: [fixture],
+        searchQuery: '',
       },
     });
 
@@ -35,6 +36,7 @@ describe('Pokedex', () => {
       pokedex: {
         status: REQUEST_STATUS.REJECTED,
         entities: [],
+        searchQuery: '',
       },
     });
 
@@ -48,6 +50,7 @@ describe('Pokedex', () => {
       pokedex: {
         status: REQUEST_STATUS.PENDING,
         entities: [],
+        searchQuery: '',
       },
     });
 
@@ -61,6 +64,7 @@ describe('Pokedex', () => {
       pokedex: {
         status: REQUEST_STATUS.IDLE,
         entities: [],
+        searchQuery: '',
       },
     });
 
@@ -80,6 +84,7 @@ describe('Pokedex', () => {
       pokedex: {
         status: REQUEST_STATUS.IDLE,
         entities: [],
+        searchQuery: '',
       },
     });
 

@@ -22,12 +22,17 @@ const initialState = {
   next: null,
   previous: null,
   count: null,
+  searchQuery: '',
 };
 
 const pokedexSlice = createSlice({
   name: 'pokedex',
   initialState,
-  reducers: {},
+  reducers: {
+    setSearchQuery: (state, action) => {
+      state.searchQuery = action.payload;
+    },
+  },
   extraReducers: {
     [fetchPokedex.pending]: (state) => {
       state.status = REQUEST_STATUS.PENDING;
@@ -46,4 +51,5 @@ const pokedexSlice = createSlice({
   },
 });
 
+export const { setSearchQuery } = pokedexSlice.actions;
 export default pokedexSlice.reducer;

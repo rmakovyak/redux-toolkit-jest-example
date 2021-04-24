@@ -22,3 +22,12 @@ You can also compare dispatched actions with `redux-mock-store`.
 This allows you to test component in isolation and make sure there are no side effects triggered (http request, state mutations, etc).
 
 You can use [utils/testRender](src/utils/testRender.js)
+
+### Store slice
+
+[Example: store/pokedex.test.js](src/store/pokedex.test.js)
+
+Thanks to `createSlice` from `@redux/toolkit` the action types and action creators
+are auto-generate based on reducer.
+
+So here, we can test whole flow only once to make sure that dispatched action is creating wanted impact on the store state.

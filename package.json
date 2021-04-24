@@ -6,6 +6,7 @@
     "@reduxjs/toolkit": "^1.5.1",
     "axios": "^0.21.1",
     "lodash.capitalize": "^4.2.1",
+    "lodash.debounce": "^4.0.8",
     "lodash.omit": "^4.5.0",
     "nes.css": "^2.3.0",
     "react": "^17.0.2",
