@@ -1,9 +1,15 @@
 import React, { useEffect, useCallback } from 'react';
+import Pagination from 'react-paginate';
 import { useDispatch, useSelector } from 'react-redux';
 import debounce from 'lodash.debounce';
 
 import { REQUEST_STATUS } from 'app.const';
-import { fetchPokedex, setSearchQuery } from 'store/pokedex';
+import {
+  fetchPokedex,
+  setSearchQuery,
+  setCurrentPage,
+  paginationSelector,
+} from 'store/pokedex';
 import Pokemon from 'components/Pokemon';
 
 import './Pokedex.css';
@@ -11,6 +17,7 @@ import './Pokedex.css';
 export default function Pokedex() {
   const dispatch = useDispatch();
   const pokedex = useSelector((state) => state.pokedex);
+  const { totalPages, currentPage } = useSelector(paginationSelector);
 
   useEffect(() => {
     dispatch(fetchPokedex());
@@ -45,18 +52,20 @@ export default function Pokedex() {
             onChange={onChange}
           />
         </div>
-        <button
-          className="nes-btn"
-          onClick={() => dispatch(fetchPokedex('previous'))}
-        >
-          Previous
-        </button>
-        <button
-          className="nes-btn"
-          onClick={() => dispatch(fetchPokedex('next'))}
-        >
-          Next
-        </button>
+        <Pagination
+          pageCount={totalPages}
+          pageRangeDisplayed={10}
+          initialPage={currentPage}
+          onPageChange={(page) => {
+            dispatch(setCurrentPage(page.selected));
+            dispatch(fetchPokedex());
+          }}
+          containerClassName="pagination"
+          pageClassName="page"
+          activeLinkClassName="page--active"
+        />
+      </div>
+      <div className="message-container">
         {pokedex.status === REQUEST_STATUS.PENDING && 'Loading...'}
       </div>
       <div className="pokedex-container">

@@ -1,7 +1,7 @@
 import { REQUEST_STATUS } from 'app.const';
 import { buildStore } from 'store';
 
-import { setSearchQuery } from './pokedex';
+import { setSearchQuery, setCurrentPage } from './pokedex';
 
 describe('store/pokedex', () => {
   test('setSearchQuery', () => {
@@ -11,6 +11,16 @@ describe('store/pokedex', () => {
 
     const { searchQuery } = store.getState().pokedex;
     expect(searchQuery).toBe(query);
+  });
+
+  test('setCurrentPage', () => {
+    const store = buildStore();
+    store.dispatch(setCurrentPage(2));
+    const { offset, limit } = store.getState().pokedex;
+    expect(offset).toBe(limit * 2);
+    store.dispatch(setCurrentPage(0));
+    const { offset: offsetZero } = store.getState().pokedex;
+    expect(offsetZero).toBe(0);
   });
 
   test('pokedex/fetch/pending', () => {

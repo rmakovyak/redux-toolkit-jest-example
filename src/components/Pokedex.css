@@ -16,3 +16,24 @@
 .pokedex-error {
   padding: 16px;
 }
+
+.message-container {
+  height: 16px;
+  padding: 0 16px;
+}
+
+.pagination {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+}
+
+.page {
+  padding: 6px;
+}
+
+.page--active {
+  color: black;
+}

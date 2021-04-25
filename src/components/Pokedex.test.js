@@ -22,6 +22,9 @@ describe('Pokedex', () => {
         status: REQUEST_STATUS.FULFILLED,
         entities: [fixture],
         searchQuery: '',
+        count: 100,
+        limit: 20,
+        offset: 0,
       },
     });
 
@@ -37,6 +40,9 @@ describe('Pokedex', () => {
         status: REQUEST_STATUS.REJECTED,
         entities: [],
         searchQuery: '',
+        count: 100,
+        limit: 20,
+        offset: 0,
       },
     });
 
@@ -51,6 +57,9 @@ describe('Pokedex', () => {
         status: REQUEST_STATUS.PENDING,
         entities: [],
         searchQuery: '',
+        count: 100,
+        limit: 20,
+        offset: 0,
       },
     });
 
@@ -65,6 +74,9 @@ describe('Pokedex', () => {
         status: REQUEST_STATUS.IDLE,
         entities: [],
         searchQuery: '',
+        count: 100,
+        limit: 20,
+        offset: 0,
       },
     });
 
@@ -79,12 +91,15 @@ describe('Pokedex', () => {
     expect(dispatchedActions).toEqual([expectedPayload]);
   });
 
-  test('should dispatch "pokedex/fetch" on prev/next button click', async () => {
+  test.only('should dispatch correct actions on prev button click', async () => {
     const store = mockStore({
       pokedex: {
         status: REQUEST_STATUS.IDLE,
         entities: [],
         searchQuery: '',
+        count: 100,
+        limit: 20,
+        offset: 60,
       },
     });
 
@@ -96,20 +111,43 @@ describe('Pokedex', () => {
       }),
     );
 
-    const expectedPayload = {
-      type: 'pokedex/fetch/pending',
-      payload: undefined,
-    };
-    const dispatchedActions1 = clearActionsMeta(store.getActions());
-    expect(dispatchedActions1).toEqual([expectedPayload]);
+    const expectedActions = [
+      { type: 'pokedex/setCurrentPage', payload: 2 },
+      {
+        type: 'pokedex/fetch/pending',
+      },
+    ];
+    const dispatchedActions = clearActionsMeta(store.getActions());
+    expect(dispatchedActions).toEqual(expectedActions);
+  });
 
+  test('should dispatch correct actions on next button click', async () => {
+    const store = mockStore({
+      pokedex: {
+        status: REQUEST_STATUS.IDLE,
+        entities: [],
+        searchQuery: '',
+        count: 100,
+        limit: 20,
+        offset: 0,
+      },
+    });
+
+    testRender(<Pokedex />, { store });
     store.clearActions();
     fireEvent.click(
       screen.getByRole('button', {
         name: /next/i,
       }),
     );
-    const dispatchedActions2 = clearActionsMeta(store.getActions());
-    expect(dispatchedActions2).toEqual([expectedPayload]);
+
+    const expectedActions = [
+      { type: 'pokedex/setCurrentPage', payload: 1 },
+      {
+        type: 'pokedex/fetch/pending',
+      },
+    ];
+    const dispatchedActions = clearActionsMeta(store.getActions());
+    expect(dispatchedActions).toEqual(expectedActions);
   });
 });

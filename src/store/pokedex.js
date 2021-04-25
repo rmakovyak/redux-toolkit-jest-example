@@ -11,18 +11,31 @@ export const fetchPokedex = createAsyncThunk(
     const state = thunkAPI.getState();
     const url = direction ? state.pokedex[direction] : DEFAULT_URL;
 
-    const pokedex = await getPokedex(url);
+    const pokedex = await getPokedex(
+      url,
+      state.pokedex.limit,
+      state.pokedex.offset,
+    );
     return pokedex;
   },
 );
+
+export const paginationSelector = (state) => {
+  const { count, limit, offset } = state.pokedex;
+  const totalPages = Math.floor(count / limit);
+  const currentPage = Math.floor(offset / limit);
+  return { totalPages, currentPage };
+};
 
 const initialState = {
   status: REQUEST_STATUS.IDLE,
   entities: [],
   next: null,
   previous: null,
-  count: null,
+  count: 0,
   searchQuery: '',
+  limit: 20,
+  offset: 40,
 };
 
 const pokedexSlice = createSlice({
@@ -31,6 +44,9 @@ const pokedexSlice = createSlice({
   reducers: {
     setSearchQuery: (state, action) => {
       state.searchQuery = action.payload;
+    },
+    setCurrentPage: (state, action) => {
+      state.offset = action.payload * state.limit;
     },
   },
   extraReducers: {
@@ -51,5 +67,5 @@ const pokedexSlice = createSlice({
   },
 });
 
-export const { setSearchQuery } = pokedexSlice.actions;
+export const { setSearchQuery, setCurrentPage } = pokedexSlice.actions;
 export default pokedexSlice.reducer;
