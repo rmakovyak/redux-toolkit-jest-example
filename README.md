@@ -31,3 +31,9 @@ Thanks to `createSlice` from `@redux/toolkit` the action types and action creato
 are auto-generate based on reducer.
 
 So here, we can test whole flow only once to make sure that dispatched action is creating wanted impact on the store state.
+
+### Selectors
+
+[Example: store/pokedex.test.js](src/store/pokedex.test.js)
+
+Tested with real or mocked store (depends on situation), pure function, so there should be no issues here

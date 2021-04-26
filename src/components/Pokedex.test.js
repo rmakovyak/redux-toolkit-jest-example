@@ -88,10 +88,10 @@ describe('Pokedex', () => {
     };
     const dispatchedActions = clearActionsMeta(store.getActions());
 
-    expect(dispatchedActions).toEqual([expectedPayload]);
+    expect(dispatchedActions.includes(expectedPayload)).toBeTruthy();
   });
 
-  test.only('should dispatch correct actions on prev button click', async () => {
+  test('should dispatch correct actions on prev button click', async () => {
     const store = mockStore({
       pokedex: {
         status: REQUEST_STATUS.IDLE,

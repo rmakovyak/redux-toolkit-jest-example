@@ -1,7 +1,12 @@
 import { REQUEST_STATUS } from 'app.const';
 import { buildStore } from 'store';
 
-import { setSearchQuery, setCurrentPage } from './pokedex';
+import {
+  setSearchQuery,
+  setCurrentPage,
+  paginationSelector,
+  setCount,
+} from './pokedex';
 
 describe('store/pokedex', () => {
   test('setSearchQuery', () => {
@@ -67,5 +72,28 @@ describe('store/pokedex', () => {
     expect(count).toBe(fixture.count);
     expect(next).toBe(fixture.next);
     expect(previous).toBe(fixture.previous);
+  });
+
+  test('pokedex/paginationSelector', () => {
+    const store = buildStore();
+    store.dispatch(setCount(100));
+
+    const state = store.getState();
+
+    const expectedValue = {
+      totalPages: 5,
+      currentPage: 0,
+    };
+    expect(paginationSelector(state)).toEqual(expectedValue);
+
+    store.dispatch(setCount(0));
+
+    const secondState = store.getState();
+
+    const secondExpectedValue = {
+      totalPages: 0,
+      currentPage: 0,
+    };
+    expect(paginationSelector(secondState)).toEqual(secondExpectedValue);
   });
 });

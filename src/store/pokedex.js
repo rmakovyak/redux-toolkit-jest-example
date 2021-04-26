@@ -35,7 +35,7 @@ const initialState = {
   count: 0,
   searchQuery: '',
   limit: 20,
-  offset: 40,
+  offset: 0,
 };
 
 const pokedexSlice = createSlice({
@@ -47,6 +47,9 @@ const pokedexSlice = createSlice({
     },
     setCurrentPage: (state, action) => {
       state.offset = action.payload * state.limit;
+    },
+    setCount: (state, action) => {
+      state.count = action.payload;
     },
   },
   extraReducers: {
@@ -67,5 +70,9 @@ const pokedexSlice = createSlice({
   },
 });
 
-export const { setSearchQuery, setCurrentPage } = pokedexSlice.actions;
+export const {
+  setSearchQuery,
+  setCurrentPage,
+  setCount,
+} = pokedexSlice.actions;
 export default pokedexSlice.reducer;
